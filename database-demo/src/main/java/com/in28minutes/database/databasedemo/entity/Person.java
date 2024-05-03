@@ -1,5 +1,8 @@
 package com.in28minutes.database.databasedemo.entity;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 public class Person {
 	private int id;
 	private String name;
@@ -34,8 +37,8 @@ public class Person {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public void setBirthDate(String birthDate) {
-		this.birthDate = birthDate;
+	public void setBirthDate(String timestamp) {
+		this.birthDate = timestamp;
 	}
 	@Override
 	public String toString() {
