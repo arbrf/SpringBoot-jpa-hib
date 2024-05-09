@@ -46,4 +46,7 @@ class CourseRepositoryTest {
 		assertEquals("Learn AWS in 10 Steps Update!!!", course1.getName());
 		
 	}
+	void playWithEntity() {
+		courseRepository.playWithEntityManager();
+	}
 }

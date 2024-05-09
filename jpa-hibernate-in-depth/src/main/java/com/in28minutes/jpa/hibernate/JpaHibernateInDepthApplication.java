@@ -23,8 +23,9 @@ public class JpaHibernateInDepthApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		logger.info("The Course is {}",courseRepository.findById(10001));
-		courseRepository.save(new Course("LEarn MicroServices in 100 Steps"));
-	}
+//		logger.info("The Course is {}",courseRepository.findById(10001));
+//		courseRepository.save(new Course("LEarn MicroServices in 100 Steps"));
+		courseRepository.playWithEntityManager();
+		}
 
 }
