@@ -44,16 +44,9 @@ public class CourseRepository {
 		entityManager.persist(course1);
 		Course course2 = new Course("Learn Angular JS in 100 Steps");
 		entityManager.persist(course2);
-		entityManager.flush();
-		entityManager.detach(course1);
-		entityManager.detach(course2);
-		
-		course1.setName("Learn Web Services in 100 Steps - Updated");
-		
+		course2.setName("LEarn Angular JS in 59 Steps updated!!!!");
 		entityManager.flush();
 		
-		course2.setName("Learn Angular JS in 100 Steps - Updated");
-		entityManager.flush();
 	}
 	
 	
