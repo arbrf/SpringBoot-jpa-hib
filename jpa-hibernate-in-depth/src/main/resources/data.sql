@@ -3,3 +3,21 @@ insert into course(id, name, created_date, updated_date) values(10002, 'Master P
 insert into course(id, name, created_date, updated_date) values(10003, 'Advanced Data Structures and Algorithms', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 insert into course(id, name, created_date, updated_date) values(10004, 'Web Development with React', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 insert into course(id, name, created_date, updated_date) values(10005, 'Machine Learning Fundamentals', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+insert into passport(id,passport_number) values(30001,'R123456');
+insert into passport(id,passport_number) values(30002,'J146762');
+insert into passport(id,passport_number) values(30003,'A635785');
+
+
+insert into student (id,name,passport_id) values(20001,'Ranga',30001);
+insert into student (id,name,passport_id) values(20002,'John',30002);
+insert into student (id,name,passport_id) values(20003,'Alice',30003);
+
+
+
+
+
+
+insert into review(id,description,rating) values(40001,'GreatCourse',5);
+insert into review(id,description,rating) values(40002,'Aewsome Course',4);
+insert into review(id,description,rating) values(40003,'Average Course',3);
