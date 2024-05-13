@@ -48,7 +48,22 @@ public class StudentRepository {
 		
 		
 	}
-	
+	void understandingPersistenceContext() {
+		Student student = entityManager.find(Student.class, 20001);
+	    
+	    // Retrieve the passport associated with the student
+	    Passport passport = student.getPassport();
+	    
+	    // Update the passport number
+	    passport.setPassportNumber("S123456");
+	    
+	    // Update the student's name
+	    student.setName("Ranga -Updated!!!");
+	    
+	    // Log the updated student information
+	    
+	    // Log the passport information
+	}
 	
 	
 

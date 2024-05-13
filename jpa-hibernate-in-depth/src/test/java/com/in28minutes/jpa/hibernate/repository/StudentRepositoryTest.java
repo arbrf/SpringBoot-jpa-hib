@@ -1,53 +1,53 @@
 package com.in28minutes.jpa.hibernate.repository;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.in28minutes.jpa.hibernate.JpaHibernateInDepthApplication;
-import com.in28minutes.jpa.hibernate.entity.Course;
+import com.in28minutes.jpa.hibernate.entity.Passport;
 import com.in28minutes.jpa.hibernate.entity.Student;
-@RunWith(SpringRunner.class)
+
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
+
 @SpringBootTest(classes = JpaHibernateInDepthApplication.class)
 class StudentRepositoryTest {
-	@Autowired
-	StudentRepository studentRepository;
-	private Logger logger=LoggerFactory.getLogger(this.getClass());
-	
-	@Test
-	void findById_studnet() {
-	Student student=studentRepository.findById(10001);
-	
-	logger.info("The  Studnet is {}",student);
-	logger.info("The password for studnet is ", student.getPassport());
-	}
-	
-//	@Test
-//	@DirtiesContext
-//	void deleteById_basics() {
-//		courseRepository.deleteByID(10002);
-//		assertNull(courseRepository.findById(10002));
-//	}
-//	@Test
-//	@DirtiesContext
-//	void saveByCourse_basics() {
-//		Course course=courseRepository.findById(10001);
-//		assertEquals("Learn AWSin 10 Steps", course.getName());
-//		course.setName("Learn AWS in 10 Steps Update!!!");
-//		courseRepository.save(course);
-//		Course course1=courseRepository.findById(10001);
-//		assertEquals("Learn AWS in 10 Steps Update!!!", course1.getName());
-//		
-//	}
-//	void playWithEntity() {
-//		courseRepository.playWithEntityManager();
-//	}
+    @Autowired
+    StudentRepository studentRepository;
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    @Autowired
+    EntityManager entityManager;
+
+    @Test
+    void findById_studnet() {
+        Student student = studentRepository.findById(20001);
+
+        logger.info("The  Student is {}", student);
+        logger.info("The passport for student is {}", student.getPassport());
+    }
+
+    @Test
+    void someTest() {
+        // Retrieve a student entity from the database
+        studentRepository.understandingPersistenceContext();
+    }
+
+    @Test
+    void retrieveStudentPassportDetails() {
+        Student student = studentRepository.findById(20001);
+
+        logger.info("The  Student is {}", student);
+        logger.info("The passport for student is {}", student.getPassport());
+    }
+
+    @Test
+    void retrievePassportAssociatedStudentDetails() {
+        Passport passport = entityManager.find(Passport.class, 30001);
+        Student student = passport.getStudent();
+        logger.info("The passport is {}", passport);
+        logger.info("The student for student is {}", student);
+    }
 }
