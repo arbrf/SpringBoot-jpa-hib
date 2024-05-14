@@ -1,9 +1,13 @@
 package com.in28minutes.jpa.hibernate.entity;
 
+import java.util.Arrays;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Review {
@@ -14,9 +18,11 @@ public class Review {
     @Column(name = "description")
     private String description;
     private String rating;
+    @ManyToOne
+    private Course course;
     public Review() {}
 
-    public Review(String description,String rating) {
+    public Review(String rating,String description) {
         this.description = description;
         this.rating=rating;
     }
@@ -41,7 +47,17 @@ public class Review {
         this.description = description;
     }
     
-    @Override
+    public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+	 public static List<Review> asListOf(Review... reviews) {
+	        return Arrays.asList(reviews);
+	    }
+	@Override
     public String toString() {
         return String.format("Rating[id=%d, description=%s]", rating, description);
     }

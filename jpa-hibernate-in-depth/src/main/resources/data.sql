@@ -18,6 +18,6 @@ insert into student (id,name,passport_id) values(20003,'Alice',30003);
 
 
 
-insert into review(id,description,rating) values(40001,'GreatCourse',5);
-insert into review(id,description,rating) values(40002,'Aewsome Course',4);
-insert into review(id,description,rating) values(40003,'Average Course',3);
+insert into review(id,rating,description,course_id) values(40001,5,'GreatCourse',10001);
+insert into review(id,rating,description,course_id) values(40002,4,'Aewsome Course',10001);
+insert into review(id,rating,description,course_id) values(40003,3,'Average Course',10003);

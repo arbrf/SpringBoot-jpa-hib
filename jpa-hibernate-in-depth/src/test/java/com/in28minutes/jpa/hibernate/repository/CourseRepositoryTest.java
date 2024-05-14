@@ -14,6 +14,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.in28minutes.jpa.hibernate.JpaHibernateInDepthApplication;
 import com.in28minutes.jpa.hibernate.entity.Course;
+
+import jakarta.transaction.Transactional;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = JpaHibernateInDepthApplication.class)
 class CourseRepositoryTest {
@@ -46,7 +48,16 @@ class CourseRepositoryTest {
 		assertEquals("Learn AWS in 10 Steps Update!!!", course1.getName());
 		
 	}
+	@Test
+	@DirtiesContext
 	void playWithEntity() {
 		courseRepository.playWithEntityManager();
+	}
+	
+	@Test
+	@Transactional
+	public void retrieveReviewForCourse() {
+		Course course=courseRepository.findById(10001);
+	logger.info("course.getReviews()->{}",course.getReviews());	
 	}
 }
