@@ -1,5 +1,6 @@
 package com.in28minutes.jpa.hibernate.repository;
 
+import org.apache.coyote.http11.filters.SavedRequestInputFilter;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.in28minutes.jpa.hibernate.JpaHibernateInDepthApplication;
+import com.in28minutes.jpa.hibernate.entity.Course;
 import com.in28minutes.jpa.hibernate.entity.Passport;
 import com.in28minutes.jpa.hibernate.entity.Student;
 
@@ -49,5 +51,12 @@ class StudentRepositoryTest {
         Student student = passport.getStudent();
         logger.info("The passport is {}", passport);
         logger.info("The student for student is {}", student);
+    }
+    @Test
+    @Transactional
+    void retrieveStudentAssociatedCourses() {
+    	Student student = entityManager.find(Student.class, 20001);
+    	logger.info("Student {}",student);
+        logger.info("The retrieveStudentAssociatedCourses is {}",student.getCourses());
     }
 }

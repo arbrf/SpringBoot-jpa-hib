@@ -14,7 +14,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.in28minutes.jpa.hibernate.JpaHibernateInDepthApplication;
 import com.in28minutes.jpa.hibernate.entity.Course;
+import com.in28minutes.jpa.hibernate.entity.Review;
 
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = JpaHibernateInDepthApplication.class)
@@ -22,7 +24,8 @@ class CourseRepositoryTest {
 	@Autowired
 	CourseRepository courseRepository;
 	private Logger logger=LoggerFactory.getLogger(this.getClass());
-	
+	@Autowired
+	EntityManager entityManager;
 	@Test
 	void findById_basics() {
 	Course course=courseRepository.findById(10001);
@@ -59,5 +62,11 @@ class CourseRepositoryTest {
 	public void retrieveReviewForCourse() {
 		Course course=courseRepository.findById(10001);
 	logger.info("course.getReviews()->{}",course.getReviews());	
+	}
+	@Test
+	@Transactional
+	public void retrieveCourseForReview() {
+		Review review=entityManager.find(Review.class, 40001);
+	logger.info("review=entityManager.find(Review.class, 40001);->{}",review.getCourse());	
 	}
 }

@@ -1,6 +1,7 @@
 package com.in28minutes.jpa.hibernate.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,6 +11,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
@@ -23,15 +25,22 @@ import jakarta.persistence.OneToMany;
 public class Course {
 	@Id
 	@GeneratedValue
-	private long id;
+	private long id; 
+	
 	@Column(name = "name",nullable = false,insertable = true)
 	private String name;
+	
 	@CreationTimestamp
 	private LocalDate created_Date;
+	
 	@UpdateTimestamp
 	private LocalDate updated_Date;
+	
 	@OneToMany(mappedBy = "course")
-	private List<Review> reviews;
+	private List<Review> reviews = new ArrayList<>();
+	
+	@ManyToMany(mappedBy = "courses")
+	private List<Student> students = new ArrayList<>();
 	
 	public Course() {}
 
@@ -64,6 +73,18 @@ public class Course {
 	public void removeReviews(Review review) {
 		this.reviews.remove(review);
 	}
+	
+	public List<Student> getCourses() {
+		return students;
+	}
+
+	public void addCourse(Student student) {
+		this.students.add(student);
+	}
+	public void removeCourse(Student student) {
+		this.students.remove(student);
+	}
+
 	@Override
 	public String toString() {
 		return  name;
