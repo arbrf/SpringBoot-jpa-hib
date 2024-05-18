@@ -59,4 +59,5 @@ class StudentRepositoryTest {
     	logger.info("Student {}",student);
         logger.info("The retrieveStudentAssociatedCourses is {}",student.getCourses());
     }
+    
 }

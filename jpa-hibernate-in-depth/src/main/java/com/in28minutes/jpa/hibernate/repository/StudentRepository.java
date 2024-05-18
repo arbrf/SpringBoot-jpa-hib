@@ -2,9 +2,12 @@ package com.in28minutes.jpa.hibernate.repository;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.in28minutes.jpa.hibernate.entity.Course;
 import com.in28minutes.jpa.hibernate.entity.Passport;
 import com.in28minutes.jpa.hibernate.entity.Student;
 
@@ -16,7 +19,7 @@ import jakarta.transaction.Transactional;
 public class StudentRepository {
 	@Autowired
 	EntityManager entityManager;
-	
+	private Logger logger=LoggerFactory.getLogger(this.getClass());
 	public Student findById(int id) {
 		return entityManager.find(Student.class, id);
 	}
@@ -65,6 +68,14 @@ public class StudentRepository {
 	    // Log the passport information
 	}
 	
-	
+	public void insertCourse_Student(Course course,Student student) {
+		entityManager.persist(student);
+		entityManager.persist(course);
+		student.addCourse(course);
+		course.addCourse(student);
+		entityManager.persist(student);
+		logger.info("hiiiiiiiiii-> {} ----------{}",course,student);
+		
+	}
 
 }
