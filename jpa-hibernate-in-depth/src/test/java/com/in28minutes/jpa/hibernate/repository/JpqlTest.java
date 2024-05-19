@@ -1,5 +1,7 @@
 package com.in28minutes.jpa.hibernate.repository;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.in28minutes.jpa.hibernate.JpaHibernateInDepthApplication;
 import com.in28minutes.jpa.hibernate.entity.Course;
+import com.in28minutes.jpa.hibernate.entity.Student;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -73,6 +76,63 @@ class JpqlTest {
 	    query.setParameter("currentDateTime", currentDateTime);
 	    int noOfRowUpdated = query.executeUpdate();
 	    logger.info("The number of rows updated is {}", noOfRowUpdated);
+	}
+
+	
+	@Test
+	public void jpql_Course_Without_Students() {
+	    TypedQuery<Course> query =
+	    		em.createQuery("SELECT c FROM Course c WHERE c.students IS EMPTY", Course.class);
+	    List<Course> resultList = query.getResultList();
+	    logger.info("retrieve Courses without Students {}", resultList);
+	}
+	
+	@Test
+	public void course_more_thenTwo_Students() {
+		TypedQuery<Course> query=em.createQuery("select c from Course c where size(c.students)>2",Course.class);
+		List<Course> result=query.getResultList();
+		logger.info("Result {}",result);
+	}
+
+	@Test
+	public void orderByStudents() {
+	    TypedQuery<Course> query = em.createQuery("SELECT c FROM Course c order by size(c.students)", Course.class);
+	    List<Course> result = query.getResultList();
+	    logger.info("Filtered courses: {}", result);
+	}
+	@Test
+	public void studentsWithPassportLike() {
+	    TypedQuery<Student> query = em.createQuery("SELECT s FROM Student s WHERE s.passport.passportNumber LIKE '%123%'", Student.class);
+	    List<Student> result = query.getResultList();
+	    logger.info("Students with passport numbers like '%123%': {}", result);
+	}
+	@Test
+	public void join() {
+	    Query query = em.createQuery("SELECT c, s FROM Course c  JOIN c.students s");
+	    List<Object[]> result = query.getResultList();
+	    logger.info("result size INNER JOIN is {}", result.size());
+	    for(Object[] result1 : result) {
+	        logger.info("Course {}, Student {}", result1[0], result1[1]);
+	    }
+	}
+	@Test
+	public void LEFT_join() {
+	    Query query = em.createQuery("SELECT c, s FROM Course c LEFT JOIN c.students s");
+	    List<Object[]> result = query.getResultList();
+	    logger.info("result size LEFT JOIN is {}", result.size());
+	    for(Object[] result1 : result) {
+	        logger.info("Course {}, Student {}", result1[0], result1[1]);
+	    }
+	}
+
+	@Test
+	public void crossJoin() {
+	    Query query = em.createQuery("SELECT c, s FROM Course c, Student s");
+	    List<Object[]> result = query.getResultList();
+	    logger.info("Result size CROSS is {}", result.size());
+	    for (Object[] result1 : result) {
+	        logger.info("Course {}, Student {}", result1[0], result1[1]);
+	    }
 	}
 
 }

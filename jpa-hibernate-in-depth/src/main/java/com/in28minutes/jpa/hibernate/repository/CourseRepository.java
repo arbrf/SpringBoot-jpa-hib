@@ -3,15 +3,16 @@ package com.in28minutes.jpa.hibernate.repository;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.sql.model.ast.builder.CollectionRowDeleteByUpdateSetNullBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.in28minutes.jpa.hibernate.entity.Course;
 import com.in28minutes.jpa.hibernate.entity.Review;
 
-import jakarta.persistence.Embeddable;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 @Repository
@@ -19,7 +20,7 @@ import jakarta.transaction.Transactional;
 public class CourseRepository {
 	@Autowired
 	EntityManager entityManager;
-	
+	private Logger logger=LoggerFactory.getLogger(this.getClass());
 	public Course findById(int id) {
 		return entityManager.find(Course.class, id);
 	}
@@ -74,5 +75,10 @@ public class CourseRepository {
 		
 	}
 	
-
+	public void jpql_Course_Without_Students() {
+	    TypedQuery<Course> query =
+	    		entityManager.createQuery("SELECT c FROM Course c WHERE c.students IS EMPTY", Course.class);
+	    List<Course> resultList = query.getResultList();
+	    logger.info("retrieve Courses without Students {}", resultList);
+	}
 }

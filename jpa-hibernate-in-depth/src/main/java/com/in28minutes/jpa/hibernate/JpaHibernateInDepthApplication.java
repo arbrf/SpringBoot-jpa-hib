@@ -48,11 +48,14 @@ public class JpaHibernateInDepthApplication implements CommandLineRunner{
 		Student student = new Student("Jack");
 		studentRepository.insertCourse_Student(course,student);
 		//logger.info("hiiiiiiiiii-> {} ----------{}",course,student);*/
-	employeeRepository.insertEmployee(new FullTimeEmployee("Jill",new BigDecimal("10000")));
-		employeeRepository.insertEmployee(new PartTimeEmployee("Jackson", 
+	/*employeeRepository.insertFullTimeEmployee(new FullTimeEmployee("Jill",new BigDecimal("10000")));
+	
+		employeeRepository.insertPartTimeEmployee(new PartTimeEmployee("Jackson", 
 				new BigDecimal("50")));
-		logger.info("retrieveAllEmployees->{}",employeeRepository.retrieveAllEmployees());
 		
+		logger.info("retrieveAllEmployees->{}",employeeRepository.retrievePartTimeEmployees());
+		logger.info("retrieveAllEmployees->{}",employeeRepository.retrieveFullTimeEmployee());*/
+		courseRepository.jpql_Course_Without_Students();
 		}
 
 }
