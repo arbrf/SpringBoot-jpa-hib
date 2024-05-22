@@ -55,7 +55,7 @@ public class JpaHibernateInDepthApplication implements CommandLineRunner{
 		
 		logger.info("retrieveAllEmployees->{}",employeeRepository.retrievePartTimeEmployees());
 		logger.info("retrieveAllEmployees->{}",employeeRepository.retrieveFullTimeEmployee());*/
-		courseRepository.jpql_Course_Without_Students();
+	//	courseRepository.jpql_Course_Without_Students();
 		}
 
 }

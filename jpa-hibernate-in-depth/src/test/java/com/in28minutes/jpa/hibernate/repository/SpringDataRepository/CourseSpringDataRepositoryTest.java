@@ -3,6 +3,7 @@ package com.in28minutes.jpa.hibernate.repository.SpringDataRepository;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.in28minutes.jpa.hibernate.JpaHibernateInDepthApplication;
@@ -41,6 +46,25 @@ class CourseSpringDataRepositoryTest {
 		logger.info("All Courses{}",repository.findAll());
 		logger.info("All Courses{} count",repository.count());
 		
+		
+	}
+	@Test
+	void course_sort() {
+		 Sort sort = Sort.by(Sort.Direction.DESC, "name");
+		    List<Course> courses = repository.findAll(sort);
+		    logger.info("Sorted Courses {}",courses);
+	}
+	@Test
+	void course_Pagination() {
+		PageRequest pageRequest= PageRequest.of(0, 3);
+		Page<Course> firstPage=repository.findAll(pageRequest);
+		logger.info("First PAge-> {}",firstPage.getContent());
+		Pageable pageRequest2 = firstPage.nextPageable();
+		Page<Course> secondPage=repository.findAll(pageRequest2);
+		logger.info("Second PAge-> {}",secondPage.getContent());
+		Pageable pageRequest3 = secondPage.nextPageable();
+		Page<Course> thirdPage=repository.findAll(pageRequest3);
+		logger.info("Third PAge-> {}",thirdPage.getContent());
 		
 	}
 }
