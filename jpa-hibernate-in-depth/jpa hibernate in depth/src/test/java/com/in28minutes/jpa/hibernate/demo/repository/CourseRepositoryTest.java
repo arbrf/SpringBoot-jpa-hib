@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.in28minutes.jpa.hibernate.demo.DemoApplication;
 import com.in28minutes.jpa.hibernate.demo.entity.Course;
 import com.in28minutes.jpa.hibernate.demo.entity.Review;
+import com.in28minutes.jpa.hibernate.demo.entity.ReviewRating;
 import com.in28minutes.jpa.hibernate.demo.entity.Student;
 
 @RunWith(SpringRunner.class)
@@ -55,6 +56,8 @@ public class CourseRepositoryTest {
 		
 		assertEquals("JPA in 50 Steps", course1.getName());
 	}
+	
+	
 
 
 	@Test
@@ -132,5 +135,11 @@ public class CourseRepositoryTest {
 	      System.out.println(course + " " + course.getStudents());
 	    }
 	}
-
+	@Test
+	public void insertRating() {
+		Long id=50001L;
+		Review review=em.find(Review.class, id);
+		review.setRating(ReviewRating.THREE);
+		logger.info("{}",review);
+	}
 }

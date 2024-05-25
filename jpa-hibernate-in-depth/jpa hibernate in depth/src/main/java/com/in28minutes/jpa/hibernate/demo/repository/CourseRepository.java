@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.in28minutes.jpa.hibernate.demo.entity.Course;
 import com.in28minutes.jpa.hibernate.demo.entity.Review;
+import com.in28minutes.jpa.hibernate.demo.entity.ReviewRating;
 
 @Repository
 @Transactional
@@ -58,8 +59,8 @@ public class CourseRepository {
 		logger.info("course.getReviews() -> {}", course.getReviews());
 		
 		//add 2 reviews to it
-		Review review1 = new Review("5", "Great Hands-on Stuff.");	
-		Review review2 = new Review("5", "Hatsoff.");
+		Review review1 = new Review(ReviewRating.FOUR, "Great Hands-on Stuff.");	
+		Review review2 = new Review(ReviewRating.FIVE, "Hatsoff.");
 		
 		//setting the relationship
 		course.addReview(review1);
@@ -83,5 +84,12 @@ public class CourseRepository {
 			review.setCourse(course);
 			em.persist(review);
 		}
+	}
+	
+	
+	public void insertnewRating() {
+		
+		Review review=new Review(ReviewRating.THREE, "Average Course");
+		logger.info("{}",review);
 	}
 }

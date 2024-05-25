@@ -1,9 +1,13 @@
 package com.in28minutes.jpa.hibernate.demo.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import ch.qos.logback.core.subst.Token.Type;
 
 @Entity
 public class Review {
@@ -11,8 +15,8 @@ public class Review {
 	@Id
 	@GeneratedValue
 	private Long id;
-
-	private String rating;
+	@Enumerated(EnumType.STRING)
+	private ReviewRating rating;
 
 	private String description;
 
@@ -22,7 +26,7 @@ public class Review {
 	protected Review() {
 	}
 
-	public Review(String rating, String description) {
+	public Review(ReviewRating rating, String description) {
 		this.rating = rating;
 		this.description = description;
 	}
@@ -35,11 +39,11 @@ public class Review {
 		this.description = description;
 	}
 
-	public String getRating() {
+	public ReviewRating getRating() {
 		return rating;
 	}
 
-	public void setRating(String rating) {
+	public void setRating(ReviewRating rating) {
 		this.rating = rating;
 	}
 
