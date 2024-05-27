@@ -28,6 +28,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @NamedQueries(value = { 
 		@NamedQuery(name = "query_get_all_courses", 
 				query = "Select  c  From Course c"),
+		@NamedQuery(name = "query_get_all_courses_using_join_fetch", 
+		query = "Select  c  From Course c JOIN FETCH c.students s"),
 		@NamedQuery(name = "query_get_100_Step_courses", 
 		query = "Select  c  From Course c where name like '%100 Steps'") })
 @Cacheable
@@ -107,6 +109,6 @@ public class Course {
 
 	@Override
 	public String toString() {
-		return String.format("Course[%s]", name);
+		return String.format("Course[%s] Student [%s]", name,students);
 	}
 }
