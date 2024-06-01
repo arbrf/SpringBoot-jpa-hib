@@ -1,5 +1,6 @@
 package com.in28minutes.jpa.hibernate.demo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,6 +11,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.in28minutes.jpa.hibernate.demo.entity.Course;
+import com.in28minutes.jpa.hibernate.demo.entity.Review;
+import com.in28minutes.jpa.hibernate.demo.entity.ReviewRating;
 import com.in28minutes.jpa.hibernate.demo.repository.CourseRepository;
 import com.in28minutes.jpa.hibernate.demo.repository.CourseSpringDataRepository;
 import com.in28minutes.jpa.hibernate.demo.repository.EmployeeRepository;
@@ -43,12 +46,12 @@ public class DemoApplication implements CommandLineRunner {
 		//courseRepository.addHardcodedReviewsForCourse();
 		List<Course> findAll = dataRepository.findAll();
 		logger.info("Find {}",findAll);
-		// List<Review> reviews = new ArrayList<>();
+		List<Review> reviews = new ArrayList<>();
 
-		// reviews.add(new Review("5", "Great Hands-on Stuff."));
-		// reviews.add(new Review("5", "Hatsoff."));
+		reviews.add(new Review(ReviewRating.FIVE, "Great Hands-on Stuff."));
+		reviews.add(new Review(ReviewRating.FOUR, "Hatsoff."));
 
-		// courseRepository.addReviewsForCourse(10003L, reviews );
+		courseRepository.addReviewsForCourse(10003L, reviews );
 		// studentRepository.insertHardcodedStudentAndCourse();
 		// studentRepository.insertStudentAndCourse(new Student("Jack"),
 		// new Course("Microservices in 100 Steps"));
@@ -64,6 +67,8 @@ public class DemoApplication implements CommandLineRunner {
 		
 		logger.info("Part Time Employees -> {}", 
 				employeeRepository.retrieveAllPartTimeEmployees());*/
-		courseRepository.insertnewRating();
+		long insertnewRating = courseRepository.insertnewRating();
+		logger.info("insertnewRating-> {}",insertnewRating);
+		//courseRepository.deleteReview(insertnewRating);
 	}
 }

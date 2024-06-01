@@ -3,6 +3,7 @@ package com.in28minutes.jpa.hibernate.demo.repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.swing.Renderer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,12 +85,21 @@ public class CourseRepository {
 			review.setCourse(course);
 			em.persist(review);
 		}
+		em.persist(course);
 	}
 	
 	
-	public void insertnewRating() {
+	public long insertnewRating() {
 		
 		Review review=new Review(ReviewRating.THREE, "Average Course");
+		em.persist(review);
 		logger.info("{}",review);
+		return review.getId();
+	}
+	public int deleteReview(long id) {
+		Review review=em.find(Review.class, id);
+		em.remove(review);
+		return 0;
+				
 	}
 }
