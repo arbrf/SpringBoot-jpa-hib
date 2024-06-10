@@ -16,7 +16,7 @@ public class SimpleContextLauncher {
 		AnnotationConfigApplicationContext(SimpleContextLauncher.class)) {
 		
 		for(String obj:context.getBeanDefinitionNames()) {
-			//System.out.println(obj);
+			System.out.println(obj);
 			
 		}
 		
